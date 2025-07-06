@@ -78,4 +78,34 @@ describe("Checkout Order Total Kata", () => {
       );
     });
   });
+
+  // Markdown tests Suite:
+  describe("Markdowns (sale prices)", () => {
+    // Test: Apply a valid markdown to a single item
+    it("applies markdown price for per-unit item", () => {
+      const checkout = new Checkout();
+      checkout.setPricePerUnit("soup", 1.89);
+      checkout.setMarkdown("soup", 0.2); // Apply a $0.20 discount
+
+      checkout.scan("soup");
+
+      expect(checkout.CalculateTotal()).toBe(1.69);
+    });
+
+    it("does not allow negative markdowns", () => {
+      const checkout = new Checkout();
+      checkout.setPricePerUnit("soup", 1.89);
+      expect(() => checkout.setMarkdown("soup", -0.1)).toThrow(
+        "Markdown cannot be negative"
+      );
+    });
+
+    it("does not allow markdown greater than price", () => {
+      const checkout = new Checkout();
+      checkout.setPricePerUnit("soup", 1.89);
+      expect(() => checkout.setMarkdown("soup", 2.0)).toThrow(
+        "Markdown cannot exceed item price"
+      );
+    });
+  });
 });
