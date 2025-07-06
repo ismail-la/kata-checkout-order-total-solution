@@ -9,16 +9,12 @@ export class Checkout {
   private Markdowns: Map<string, number> = new Map();
 
   setPricePerUnit(itemName: string, price: number): void {
-    if (price < 0) {
-      throw new Error("Price cannot be negative");
-    }
+    if (price < 0) throw new Error("Price cannot be negative");
     this.UnitPrices.set(itemName, price);
   }
 
   setPricePerPound(itemName: string, price: number): void {
-    if (price < 0) {
-      throw new Error("Price cannot be negative");
-    }
+    if (price < 0) throw new Error("Price cannot be negative");
     this.WeightedPrices.set(itemName, price);
   }
 
