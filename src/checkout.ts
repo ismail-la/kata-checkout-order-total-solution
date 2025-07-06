@@ -6,6 +6,8 @@ export class Checkout {
   private WeightedPrices: Map<string, number> = new Map();
   private WeightedItemsScanned: { name: string; weight: number }[] = [];
 
+  private Markdowns: Map<string, number> = new Map();
+
   setPricePerUnit(itemName: string, price: number): void {
     if (price < 0) {
       throw new Error("Price cannot be negative");
@@ -18,6 +20,15 @@ export class Checkout {
       throw new Error("Price cannot be negative");
     }
     this.WeightedPrices.set(itemName, price);
+  }
+
+  setMarkdown(itemName: string, markdown: number): void {
+    if (markdown < 0) throw new Error("Markdown cannot be negative");
+    const price =
+      this.UnitPrices.get(itemName) ?? this.WeightedPrices.get(itemName);
+    if (price === undefined) throw new Error("Item not found in price list");
+    if (markdown > price) throw new Error("Markdown cannot exceed item price");
+    this.Markdowns.set(itemName, markdown);
   }
 
   scan(itemName: string): void {
@@ -41,14 +52,16 @@ export class Checkout {
   CalculateTotal(): number {
     const perUnitTotal = this.ItemsScanned.reduce((sum, item) => {
       const price = this.UnitPrices.get(item) || 0;
-      return sum + price;
+      const markdown = this.Markdowns.get(item) || 0;
+      return sum + (price - markdown);
     }, 0);
 
-    const TotalWeighted = this.WeightedItemsScanned.reduce((sum, item) => {
+    const weightedTotal = this.WeightedItemsScanned.reduce((sum, item) => {
       const pricePerPound = this.WeightedPrices.get(item.name) || 0;
-      return sum + pricePerPound * item.weight;
+      const markdown = this.Markdowns.get(item.name) || 0;
+      return sum + (pricePerPound - markdown) * item.weight;
     }, 0);
 
-    return perUnitTotal + TotalWeighted;
+    return perUnitTotal + weightedTotal;
   }
 }
