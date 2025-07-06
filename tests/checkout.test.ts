@@ -52,4 +52,30 @@ describe("Checkout Order Total Kata", () => {
       );
     });
   });
+
+  // weighted items Tests:
+  describe("Weight-based itemss", () => {
+    it("adds a weighted item and computes total", () => {
+      const checkout = new Checkout();
+      checkout.setPricePerPound("ground beef", 5.99);
+
+      checkout.scanWeighted("ground beef", 2.5);
+
+      expect(checkout.CalculateTotal()).toBeCloseTo(14.98, 2); // 5.99 * 2.5
+    });
+
+    it("throws if a negative price is set for a weighted item", () => {
+      const checkout = new Checkout();
+      expect(() => checkout.setPricePerPound("apples", -2.38)).toThrow(
+        "Price cannot be negative"
+      );
+    });
+
+    it("throws if scanning a weighted item not in the price list", () => {
+      const checkout = new Checkout();
+      expect(() => checkout.scanWeighted("unknown", 1.0)).toThrow(
+        "Item 'unknown' not found in price list"
+      );
+    });
+  });
 });
