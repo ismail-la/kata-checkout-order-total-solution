@@ -1,23 +1,23 @@
  
-# Checkout Order Total Kata - TDD Solution
+# Checkout Order Total Kata - TypeScript TDD Solution
 
 ## Overview
-This is a Test-Driven Development (TDD) solution for the Checkout Order Total kata, implemented in TypeScript for Manna Technologies.
-
-## Problem Statement
-Build a grocery point-of-sale system that calculates pre-tax total prices supporting:
-- Per-unit and weighted items
-- Markdowns and specials
-- Item removal
-- Various promotional offers
-
-## Installation
+This is my Test-Driven Development (TDD) solution for the Checkout Order Total kata, implemented in TypeScript for Manna Technologies.he project is designed as a demonstration of clean code, modularity, and robust testing practices.
 
 ```bash
+
+## Challenge Summary
+Build a grocery point-of-sale system that calculates pre-tax total prices supporting:
+- Handle both per-item and per-weight products
+- Markdowns and specials
+- Item removal
+- Apply various discount rules and special offers
+
+## Installation
 npm install
 ```
 
-## Running Tests
+## Running Tests Suite
 
 ```bash
 # Run all tests
@@ -30,25 +30,26 @@ npm run test:watch
 npm run test:coverage
 ```
 
-## Building
+## Building the Project
 
 ```bash
 npm run build
 ```
 
-## TDD Approach
-This solution follows the Red-Green-Refactor cycle:
+## Development Process
+This solution follows the TDD methodology (Red-Green-Refactor cycle):
 - **Red**: Write a failing test
-- **Green**: Make the test pass with minimal code
-- **Refactor**: Improve the code while keeping tests green
+- **Green**: Write the minimum code necessary to make the test pass.
+- **Refactor**: Clean up and Improve the code while keeping tests green
 
 Each feature implementation includes proper commit history showing the TDD process.
 
 ## Architecture
 - Clean separation of concerns
 - Strategy pattern for pricing logic
-- Comprehensive error handling
-- Type-safe TypeScript implementation
+- Custom error handling for invalid operations
+- Fully type-safe with TypeScript
 
 ## Author
-[Your Name] - TDD Implementation for Manna Technologies
+Developed by Lahbari ismail - TDD Implementation for Manna Technologies
+Feel free to reach out for any questions or suggestions!
